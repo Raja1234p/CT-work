@@ -688,7 +688,7 @@ class LoginPage extends StatelessWidget {
                                       }
                                     },
                       inputFormatters: [
-                      LengthLimitingTextInputFormatter(10),
+                      LengthLimitingTextInputFormatter(11),
                       ],
                                     decoration: InputDecoration(
                                       contentPadding: EdgeInsets.symmetric(horizontal: 10),
