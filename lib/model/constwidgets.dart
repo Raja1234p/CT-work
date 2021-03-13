@@ -155,7 +155,10 @@ class ConstWidget {
 //! Circle Avatar Stack
 
   Widget circleAvatar(imagePath, BuildContext context) {
-    return CircleAvatar(
+    return
+
+
+      CircleAvatar(
       child: ClipOval(
         child: Stack(
           children: <Widget>[
@@ -168,7 +171,7 @@ class ConstWidget {
               height: 33,
               child: GestureDetector(
                 onTap: () {
-                  showsDialog(context, 'Choose Photo','Pick From Gallery', 'Take a pictuer',() {
+                  showsDialog(context, 'Choose Photo','Pick From Gallery', 'Take a picture',() {
                     controller.loadPicker(ImageSource.gallery,context);
                   },() {
                     controller.loadPicker(ImageSource.camera,context);

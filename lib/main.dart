@@ -5,8 +5,10 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'UI/cartui.dart';
 import 'UI/customvalidation.dart';
+import 'UI/login.dart';
 import 'UI/stripeui.dart';
 import 'UI/validationui.dart';
+import 'apivalidation.dart';
 import 'controllers/customvalidatorcontroller.dart';
 
 void main() {
