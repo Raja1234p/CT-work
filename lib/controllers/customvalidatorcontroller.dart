@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trollyproject/controllers/Network/network.dart';
 import 'package:trollyproject/model/LoginModel.dart';
+import 'package:trollyproject/model/forgot.dart';
 import 'package:trollyproject/model/loginandsignup.dart';
 import 'dart:io';
 
@@ -75,8 +76,10 @@ checkp(){
 
   RxBool showTooltip = false.obs;
   RxBool email = false.obs;
+RxBool showicon = false.obs;
 
-  RxBool password = false.obs;
+
+RxBool password = false.obs;
   RxBool password1 = false.obs;
 
   RxBool name = false.obs;
@@ -106,6 +109,7 @@ var check = ''.obs;
   TextEditingController lName;
   TextEditingController loginemail;
   TextEditingController loginpass;
+TextEditingController resetPass;
 
   TextEditingController emailtxt;
   TextEditingController passtxt;
@@ -117,11 +121,16 @@ var check = ''.obs;
 
 
   Rx<Loginmodel> loginmodel =Loginmodel().obs;
-  getlogindata(String email,String Pass) async{
+Rx<Forgot> forgot =Forgot().obs;
+
+
+getlogindata(String email,String Pass) async{
 
     loginmodel = await Network().login(email, Pass);
   }
-
+passReset(String pass) async{
+  forgot = await Network().forgotPassword(pass);
+}
   getdata(String name,String lastname,String email,String address,String city,String password,String phoneNumber,String countryCode) async{
     var bna = await Network().registeration(name,lastname,email,address,city,password,phoneNumber,countryCode);
 
@@ -142,6 +151,7 @@ FocusNode cityNameFocus;
 FocusNode phoneNameFocus;
 FocusNode addNameFocus;
 FocusNode submit;
+FocusNode loginnode;
 
 
 // String emailAndPhone;
@@ -160,7 +170,9 @@ FocusNode submit;
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    // Network().forgotPassword("Azeemkalwar51@gmail.com");
     // Network().checkmodel();
+    resetPass =TextEditingController();
     loginemail= TextEditingController();
     loginpass= TextEditingController();
     fName =TextEditingController();
@@ -177,7 +189,9 @@ FocusNode submit;
 
 
      firstNameFocus=FocusNode();
-     lastNameFocus=FocusNode();
+    loginnode=FocusNode();
+
+    lastNameFocus=FocusNode();
     submit = FocusNode();
 
 
@@ -198,6 +212,7 @@ FocusNode submit;
   @override
   void dispose() {
     // TODO: implement dispose
+    resetPass.dispose();
     fName.dispose();
     lName.dispose();
     emailtxt.dispose();
@@ -212,6 +227,7 @@ FocusNode submit;
     countryCode.dispose();
     loginemail.dispose();
     loginpass.dispose();
+    loginnode.dispose();
 
 
     firstNameFocus.dispose();

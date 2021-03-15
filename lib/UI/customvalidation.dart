@@ -103,6 +103,7 @@ class _LoginAlternateState extends State<LoginAlternate> {
 
   @override
   Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.of(context).orientation;
     return Scaffold(
       backgroundColor: Colors.blueGrey,
       body: Container(

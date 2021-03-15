@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:trollyproject/UI/login.dart';
 import 'package:trollyproject/UI/validationui.dart';
+import 'package:trollyproject/model/forgot.dart';
 import 'package:trollyproject/model/loginandsignup.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -128,6 +130,37 @@ Fluttertoast.showToast(msg: 'phone number already exist');
 
 
   }
+  
+  Future forgotPassword(String email) async{
+    
+    Dio dio = Dio();
+    dio.options.headers['Content-Type'] = 'application/json';
+    dio.options.headers['lang'] = 0;
+    // var jsonVar = json.encode(Forgot().toJson());
 
+    var data={
+        "email": email,
+        "type": 7
+    };
+
+    var response = await dio.post("https://app.trolleymate.co.uk/api/admin/forgot_password",data: data);
+   if(response.statusCode==200){
+     var jsonData= response.data;
+     print(jsonData);
+     if(jsonData['error_code']==1000){
+       Fluttertoast.showToast(msg: 'This email does not exist');
+     }
+     else{
+       Fluttertoast.showToast(msg: 'Check Your Email');
+
+       Get.to(()=>LoginPage());
+     }
+   }
+   else{
+     print(response.data);
+   }
+    
+  }
+  
 
 }

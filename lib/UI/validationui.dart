@@ -13,158 +13,153 @@ class LoginPage extends StatelessWidget {
   GlobalKey<FormState> _formKey = GlobalKey();
 
 
-
+  Pattern pattern =
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
 
   @override
   Widget build(BuildContext context) {
+    Orientation orientation =MediaQuery.of(context).orientation;
     return Scaffold(
       body: SafeArea(
         child: Container(
             width: double.infinity,
             child: Form(
               key: _formKey,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
+              child: ListView(
+                children: [
 
-                    SizedBox(
+                  SizedBox(
 
-                      height: MediaQuery.of(context).size.height * 0.2,
-                    ),
-
-
-                    GetX<CustomValidator>(
-                        initState: (_) {},
-                        builder: (controller) {
-                          return Column(
-                            children: [
+                    height: MediaQuery.of(context).size.height * 0.1,
+                  ),
 
 
-                              NameTextField(controller.fName,
-                                'Please enter a valid name.', "First Name ", TextInputType.name, controller.name.value,controller.firstNameFocus,(term) {
-                                  controller.firstNameFocus.unfocus();
-                                  FocusScope.of(context).requestFocus(controller.lastNameFocus);
-                                },TextInputAction.next ),
-                              NameTextField(controller.lName,
-                                'Please enter a valid name.', "Last Name ",  TextInputType.name, controller.lname.value,controller.lastNameFocus ,(term) {
-                                  controller.lastNameFocus.unfocus();
-                                  FocusScope.of(context).requestFocus(controller.emailNameFocus);
-                                },TextInputAction.next ),
+                  GetX<CustomValidator>(
+                      initState: (_) {},
+                      builder: (controller) {
+                        return Column(
+                          children: [
 
-                              emailandpass(controller.emailtxt,
-                                  controller.showTooltip.value,controller.email.value,controller.confirmemail.value,
-                                  'Email or Phone',
-                                  "Please enter a valid email.",
-                                  "Please enter a valid email.",
-                                  TextInputType.emailAddress,false,  null,controller.emailNameFocus ,(term) {
-                                  controller.emailNameFocus.unfocus();
-                                  FocusScope.of(context).requestFocus(controller.passNameFocus);
-                                },true ,TextInputAction.next),
 
-                              emailandpass(controller.passtxt,controller.password.value,controller.password1.value,controller.passwordss.value, 'Password', "Please enter a password.", "Password must be 6 character and above", null, true, null,controller.passNameFocus ,
+                            NameTextField(controller.fName,
+                              'Please enter a valid name.', "First Name ", TextInputType.name, controller.name.value,controller.firstNameFocus,(term) {
+                                controller.firstNameFocus.unfocus();
+                                FocusScope.of(context).requestFocus(controller.lastNameFocus);
+                              },TextInputAction.next ),
+                            NameTextField(controller.lName,
+                              'Please enter a valid name.', "Last Name ",  TextInputType.name, controller.lname.value,controller.lastNameFocus ,(term) {
+                                controller.lastNameFocus.unfocus();
+                                FocusScope.of(context).requestFocus(controller.emailNameFocus);
+                              },TextInputAction.next ),
 
-                          (term) {
-                          controller.passNameFocus.unfocus();
-                          FocusScope.of(context).requestFocus(controller.cnfNameFocus);
-                          },true,TextInputAction.next
-                              ),
+                            emailandpass(controller.emailtxt,
+                                controller.showTooltip.value,controller.email.value,controller.confirmemail.value,
+                                'Email or Phone',
+                                "Please enter a valid email.",
+                                "Please enter a valid email.",
+                                TextInputType.emailAddress,false,  null,controller.emailNameFocus ,(term) {
+                                controller.emailNameFocus.unfocus();
+                                FocusScope.of(context).requestFocus(controller.passNameFocus);
+                              },true ,TextInputAction.next),
 
+                            emailandpass(controller.passtxt,controller.password.value,controller.password1.value,controller.passwordss.value, 'Password', "Please enter a password.", "Password must be 6 character and above", null, true, null,controller.passNameFocus ,
+
+                        (term) {
+                        controller.passNameFocus.unfocus();
+                        FocusScope.of(context).requestFocus(controller.cnfNameFocus);
+                        },true,TextInputAction.next
+                            ),
 
 
 
-                              emailandpass(controller.cnftxt,controller.cnfpass.value,controller.cnfpass1.value,controller.confirmpass.value, 'Confirm Password', " Confirm Password does not match.", " Confirm Password does not match.", null, true, null,controller.cnfNameFocus,
 
-                                    (term) {
-                                      controller.cnfNameFocus.unfocus();
-                                  FocusScope.of(context).requestFocus(controller.countryNameFocus );
-                                },true,TextInputAction.next
+                            emailandpass(controller.cnftxt,controller.cnfpass.value,controller.cnfpass1.value,controller.confirmpass.value, 'Confirm Password', " Confirm Password does not match.", " Confirm Password does not match.", null, true, null,controller.cnfNameFocus,
 
-                              ),
+                                  (term) {
+                                    controller.cnfNameFocus.unfocus();
+                                FocusScope.of(context).requestFocus(controller.countryNameFocus );
+                              },true,TextInputAction.next
+
+                            ),
 
 
-                              NameTextField(controller.countrytxt, "Kindly Select Country.", 'Country', TextInputType.name, controller.country.value,controller.countryNameFocus ,
-                                    (term) {
-                                  controller.countryNameFocus.unfocus();
-                                  FocusScope.of(context).requestFocus(controller.cityNameFocus );
-                                },TextInputAction.next ),
-                              NameTextField(controller.citytxt, 'Please select valid city.', 'City',TextInputType.text, controller.city.value,controller.cityNameFocus,   (term) {
+                            NameTextField(controller.countrytxt, "Kindly Select Country.", 'Country', TextInputType.name, controller.country.value,controller.countryNameFocus ,
+                                  (term) {
                                 controller.countryNameFocus.unfocus();
-                                FocusScope.of(context).requestFocus(controller.addNameFocus );
-                              },TextInputAction.next  ),
+                                FocusScope.of(context).requestFocus(controller.cityNameFocus );
+                              },TextInputAction.next ),
+                            NameTextField(controller.citytxt, 'Please select valid city.', 'City',TextInputType.text, controller.city.value,controller.cityNameFocus,   (term) {
+                              controller.countryNameFocus.unfocus();
+                              FocusScope.of(context).requestFocus(controller.addNameFocus );
+                            },TextInputAction.next  ),
 
-                              Row(
+                            Row(
 
-                                children: [
+                              children: [
 
-                                  Expanded(
-
-
-                                      child: countrycode(controller.countryCode, '+92', TextInputType.phone,),
-                                  flex: 1,
-
-                          ),
-                                  Expanded(
-                                    child: emailandpass(controller.phonetxt,controller.number.value,controller.number1.value,controller.confirmnumber.value, 'Number', "Please enter a mobiel number length.", 'Please enter a mobiel number length 11or11 digits.', TextInputType.phone, false, [
-                                      LengthLimitingTextInputFormatter(16),
-
-                                    ],controller.phoneNameFocus,(term) {
-                                      controller.phoneNameFocus.unfocus();
-                                      FocusScope.of(context).requestFocus(controller.addNameFocus );
-                                    },true ,TextInputAction.next ),flex: 3,
-                                  ),
+                                Expanded(
 
 
-                                ],
-                              ),
+                                    child: countrycode(controller.countryCode, '+92', TextInputType.phone,),
+                                flex: 1,
 
-                              NameTextField(controller.addtxt,  "Kindly Enter Address", 'Address',   TextInputType.text, controller.address.value,controller.addNameFocus ,
+                        ),
+                                Expanded(
+                                  child: emailandpass(controller.phonetxt,controller.number.value,controller.number1.value,controller.confirmnumber.value, 'Number', "Please enter a mobiel number length.", 'Please enter a mobiel number length 11or11 digits.', TextInputType.phone, false, [
+                                    LengthLimitingTextInputFormatter(16),
 
-                                    (term) {
-                                  controller.addNameFocus.unfocus();
-                                  FocusScope.of(context).requestFocus(controller.submit );
-                                },TextInputAction.done
-                              ),
-
-                              SizedBox(
-
-                                height: Get.height * 0.06,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left:15.0,right: 15,top: 8,bottom: 8),
-
-                                child: Container(
-                                  width:Get.width,
-                                  height:Get.height*0.06,
-                                  child: ElevatedButton(
-                                    focusNode: controller.submit,
-
-                                    onPressed: ()  {
-                                      check('gggg');
-                                    },
-                                    child: Text('Register'.toUpperCase()),
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Colors.red
-                                    ),
-                                  ),
+                                  ],controller.phoneNameFocus,(term) {
+                                    controller.phoneNameFocus.unfocus();
+                                    FocusScope.of(context).requestFocus(controller.addNameFocus );
+                                  },true ,TextInputAction.next ),flex: 3,
                                 ),
-                              ),
-                              SizedBox(
 
-                                height: Get.height * 0.06,
-                              ),
-                            ],
-                          );
-                        }),
-                  ],
-                ),
+
+                              ],
+                            ),
+
+                            NameTextField(controller.addtxt,  "Kindly Enter Address", 'Address',   TextInputType.text, controller.address.value,controller.addNameFocus ,
+
+                                  (term) {
+                                controller.addNameFocus.unfocus();
+                                FocusScope.of(context).requestFocus(controller.submit );
+                              },TextInputAction.done
+                            ),
+
+                          ],
+                        );
+                      }),
+
+                ],
               ),
             )),
+
       ),
+      bottomNavigationBar:                               Padding(
+             padding: const EdgeInsets.only(left:15.0,right: 15,top: 8,bottom: 8),
+        child: Container(
+          width:Get.width,
+          height: orientation==Orientation.portrait? Get.height*0.06:Get.height*0.123,
+          child: ElevatedButton(
+            focusNode: controller.submit,
+
+            onPressed: ()  {
+              check('gggg');
+            },
+            child: Text('Register'.toUpperCase()),
+            style: ElevatedButton.styleFrom(
+                primary: Colors.red
+            ),
+          ),
+        ),
+      ),
+
     );
   }
 
   bool _validateUserData() {
+    RegExp regex = new RegExp(pattern);
 
 
     if (controller.fName.text.trim().isEmpty) {
@@ -189,7 +184,7 @@ class LoginPage extends StatelessWidget {
 
     }
 
-    else if(!controller.emailtxt.text.trim().contains('@')){
+    else if(!regex.hasMatch(controller.emailtxt.text.trim())){
       print('email  not valid');
       controller.name.value=false;
       controller.lname.value=false;
@@ -443,6 +438,7 @@ Padding emailandpass(
         children: [
           Positioned(
             child: TextFormField(
+
               textInputAction: textInputAction,
               enabled: true,
               focusNode: focusNode,
@@ -455,6 +451,8 @@ Padding emailandpass(
                 onFieldSubmitted: onFieldSubmitted,
 
               decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(0),
+
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 1.4),
                 ),
@@ -550,6 +548,8 @@ Padding NameTextField(
               focusNode: focusNode,
               controller: controller,
               decoration: InputDecoration(
+
+                contentPadding: EdgeInsets.all(0),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 1.4),
                 ),
@@ -617,8 +617,11 @@ Padding countrycode(
         children: [
           Positioned(
             child: TextFormField(
+
               controller: controller,
               decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(0),
+
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 1.4),
                 ),
