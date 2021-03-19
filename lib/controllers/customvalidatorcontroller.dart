@@ -58,49 +58,64 @@ import 'dart:io';
 
 class CustomValidator extends GetxController{
 
-
-
-
-
-
-
-
-
-
-
-var checkphone=''.obs;
-checkp(){
-  checkphone.value = Network().checkemail;
-}
-
-
-  RxBool showTooltip = false.obs;
-  RxBool email = false.obs;
-RxBool showicon = false.obs;
-
-
-RxBool password = false.obs;
-  RxBool password1 = false.obs;
-
   RxBool name = false.obs;
-  RxBool confirmnumber = false.obs;
-  RxBool confirmemail = false.obs;
 
-
-  RxBool cnfpass = false.obs;
-  RxBool cnfpass1 = false.obs;
 
   RxBool lname = false.obs;
-  RxBool confirmpass = false.obs;
 
-  RxBool country = false.obs;
+  RxBool emailvalidation = false.obs;
+  RxBool emailvalidation1 = false.obs;
+  RxBool emailtextfieldicon = false.obs;
+  RxBool showemailarrow = false.obs;
+  RxBool showemailarrow1 = false.obs;
+
+
+  RxBool passwordvalidation = false.obs;
+  RxBool passwordvalidation1 = false.obs;
+  RxBool passtextfieldicon = false.obs;
+  RxBool showpasswordarrow = false.obs;
+  RxBool showepasswordarrow1 = false.obs;
+
+
+
+  RxBool cnfpassvalidation = false.obs;
+  RxBool cnfpassvalidation1 = false.obs;
+  RxBool cnfpasstextfieldicon = false.obs;
+  RxBool showcnfpassarrow = false.obs;
+  RxBool showcnfpassarrow1 = false.obs;
+
+
+
+  RxBool phonevalidation = false.obs;
+  RxBool phonevalidation1 = false.obs;
+  RxBool phonetextfieldicon = false.obs;
+  RxBool showephonearrow = false.obs;
+  RxBool showephonearrow1 = false.obs;
+
+
+
+
+
+
+  RxBool circular = false.obs;
+
+
+
+
+
+  var countrycode =''.obs;
+
+
+
+
+
+  RxBool showredicon1=false.obs;
+  RxBool showicon = false.obs;
+
   RxBool city = false.obs;
-
   RxBool number = false.obs;
   RxBool number1 = false.obs;
-
   RxBool address = false.obs;
-  RxBool passwordss = false.obs;
 
 var check = ''.obs;
   TextEditingController fName;
@@ -132,12 +147,14 @@ passReset(String pass) async{
   forgot = await Network().forgotPassword(pass);
 }
   getdata(String name,String lastname,String email,String address,String city,String password,String phoneNumber,String countryCode) async{
-    var bna = await Network().registeration(name,lastname,email,address,city,password,phoneNumber,countryCode);
+    var register = await Network().registeration(name,lastname,email,address,city,password,phoneNumber,countryCode);
+
 
   }
 
 
   FocusNode firstNameFocus;
+
 FocusNode lastNameFocus;
 
 FocusNode emailNameFocus;
@@ -152,8 +169,9 @@ FocusNode phoneNameFocus;
 FocusNode addNameFocus;
 FocusNode submit;
 FocusNode loginnode;
-
-
+RxBool checkbox = false.obs;
+TextEditingController loginemailtxt;
+var countrycodename = ''.obs;
 // String emailAndPhone;
   // String password;
   //
@@ -173,6 +191,8 @@ FocusNode loginnode;
     // Network().forgotPassword("Azeemkalwar51@gmail.com");
     // Network().checkmodel();
     resetPass =TextEditingController();
+    loginemailtxt =TextEditingController();
+
     loginemail= TextEditingController();
     loginpass= TextEditingController();
     fName =TextEditingController();
@@ -184,8 +204,8 @@ FocusNode loginnode;
     addtxt =TextEditingController();
     countrytxt =TextEditingController();
     citytxt =TextEditingController();
-    countryCode =TextEditingController();
-
+    countryCode =TextEditingController(text: 'country');
+    countryCode.text=countrycode.value;
 
 
      firstNameFocus=FocusNode();
@@ -218,6 +238,7 @@ FocusNode loginnode;
     emailtxt.dispose();
     passtxt.dispose();
     submit.dispose();
+    loginemailtxt.dispose();
 
     cnftxt.dispose();
     phonetxt.dispose();
@@ -228,7 +249,6 @@ FocusNode loginnode;
     loginemail.dispose();
     loginpass.dispose();
     loginnode.dispose();
-
 
     firstNameFocus.dispose();
     lastNameFocus.dispose();

@@ -2,11 +2,11 @@ import 'package:get/get.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 
 class StripeController extends GetxController {
-   var currentSecret =             "sk_test_51Gs90eAunPcLaAkSomlRDuIGhMn3wsMZW9NV9jsA6xiR5ND5Uut62XqHVb9nztqceBYoVERbFh1Vsm6JZfwRZqMk00WQ0ahW8g"
+   var currentSecret = "sk_test_51Gs90eAunPcLaAkSomlRDuIGhMn3wsMZW9NV9jsA6xiR5ND5Uut62XqHVb9nztqceBYoVERbFh1Vsm6JZfwRZqMk00WQ0ahW8g"
        .obs;
   final CreditCard testCard = CreditCard(
     number: '4111111111111111',
-    expMonth: 08,
+    expMonth: 03,
     expYear: 22,
   );
   Token paymentToken;
@@ -14,6 +14,7 @@ class StripeController extends GetxController {
   PaymentIntentResult paymentIntent;
   var error =''.obs;
   Source source;
+  var countryname =''.obs;
 
   @override
   void onInit() {
@@ -47,9 +48,10 @@ class StripeController extends GetxController {
 
   void params(){
     StripePayment.createSourceWithParams(SourceParams(
-      type: 'ideal',
+      type: 'manuallly',
       amount: 2102,
-      currency: 'eur',
+
+      // currency: 'gbp',
       returnURL: 'example://stripe-redirect',
     )).then((source) {
       Get.snackbar('title', source.sourceId);
@@ -106,6 +108,7 @@ print(paymentMethod.id);
 
   void createPaymentMethodWithExistingToken(){
     if(paymentToken == null){
+
       return null;
     }
 
@@ -114,9 +117,11 @@ print(paymentMethod.id);
         PaymentMethodRequest(
           card: CreditCard(
             token: paymentToken.tokenId,
+            currency: 'GBP'
           ),
         ),
       ).then((paymentMethod) {
+       // print(paymentMethod.id);
         Get.snackbar('', paymentMethod.id);
 
           paymentMethod = paymentMethod;
@@ -137,6 +142,7 @@ print(paymentMethod.id);
         PaymentIntent(
           clientSecret: currentSecret.value,
           paymentMethodId: paymentMethod.id,
+
         ),
       ).then((paymentIntent) {
 

@@ -1,15 +1,15 @@
 // To parse this JSON data, do
 //
-//     final getRegisterData = getRegisterDataFromJson(jsonString);
+//     final updatedProfile = updatedProfileFromJson(jsonString);
 
 import 'dart:convert';
 
-GetRegisterData getRegisterDataFromJson(String str) => GetRegisterData.fromJson(json.decode(str));
+UpdatedProfile updatedProfileFromJson(String str) => UpdatedProfile.fromJson(json.decode(str));
 
-String getRegisterDataToJson(GetRegisterData data) => json.encode(data.toJson());
+String updatedProfileToJson(UpdatedProfile data) => json.encode(data.toJson());
 
-class GetRegisterData {
-  GetRegisterData({
+class UpdatedProfile {
+  UpdatedProfile({
     this.success,
     this.message,
     this.minimumPhoneNumberLength,
@@ -21,14 +21,14 @@ class GetRegisterData {
   int message;
   int minimumPhoneNumberLength;
   int maximumPhoneNumberLength;
-  User user;
+  Users user;
 
-  factory GetRegisterData.fromJson(Map<String, dynamic> json) => GetRegisterData(
+  factory UpdatedProfile.fromJson(Map<String, dynamic> json) => UpdatedProfile(
     success: json["success"],
     message: json["message"],
     minimumPhoneNumberLength: json["minimum_phone_number_length"],
     maximumPhoneNumberLength: json["maximum_phone_number_length"],
-    user: User.fromJson(json["user"]),
+    user: Users.fromJson(json["user"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -40,8 +40,8 @@ class GetRegisterData {
   };
 }
 
-class User {
-  User({
+class Users {
+  Users({
     this.favouriteStores,
     this.paymentIntentId,
     this.customerId,
@@ -53,10 +53,14 @@ class User {
     this.password,
     this.socialId,
     this.socialIds,
+    this.loginBy,
     this.countryPhoneCode,
+    this.appVersion,
     this.phone,
     this.address,
     this.city,
+    this.deviceToken,
+    this.deviceType,
     this.serverToken,
     this.orders,
     this.promoCount,
@@ -94,13 +98,17 @@ class User {
   String firstName;
   String lastName;
   String email;
-  String password;
+  dynamic password;
   String socialId;
   List<dynamic> socialIds;
+  String loginBy;
   String countryPhoneCode;
+  String appVersion;
   String phone;
   String address;
   String city;
+  String deviceToken;
+  String deviceType;
   String serverToken;
   List<dynamic> orders;
   int promoCount;
@@ -129,7 +137,7 @@ class User {
   int uniqueId;
   int v;
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory Users.fromJson(Map<String, dynamic> json) => Users(
     favouriteStores: List<dynamic>.from(json["favourite_stores"].map((x) => x)),
     paymentIntentId: json["payment_intent_id"],
     customerId: json["customer_id"],
@@ -141,10 +149,14 @@ class User {
     password: json["password"],
     socialId: json["social_id"],
     socialIds: List<dynamic>.from(json["social_ids"].map((x) => x)),
+    loginBy: json["login_by"],
     countryPhoneCode: json["country_phone_code"],
+    appVersion: json["app_version"],
     phone: json["phone"],
     address: json["address"],
     city: json["city"],
+    deviceToken: json["device_token"],
+    deviceType: json["device_type"],
     serverToken: json["server_token"],
     orders: List<dynamic>.from(json["orders"].map((x) => x)),
     promoCount: json["promo_count"],
@@ -186,10 +198,14 @@ class User {
     "password": password,
     "social_id": socialId,
     "social_ids": List<dynamic>.from(socialIds.map((x) => x)),
+    "login_by": loginBy,
     "country_phone_code": countryPhoneCode,
+    "app_version": appVersion,
     "phone": phone,
     "address": address,
     "city": city,
+    "device_token": deviceToken,
+    "device_type": deviceType,
     "server_token": serverToken,
     "orders": List<dynamic>.from(orders.map((x) => x)),
     "promo_count": promoCount,
