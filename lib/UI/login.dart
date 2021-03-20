@@ -2,11 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:trollyproject/controllers/customvalidatorcontroller.dart';
+import 'package:trollyproject/controllers/RegisterController.dart';
+import 'package:trollyproject/controllers/logincontroller.dart';
 import 'package:trollyproject/model/forgot.dart';
 
 class Login extends StatelessWidget {
-  CustomValidator controller = Get.put(CustomValidator());
+  RegisterControllers controller = Get.put(RegisterControllers());
+  LoginController controllers = Get.put(LoginController());
+
 
   GlobalKey<FormState> _formKey = GlobalKey();
   GlobalKey<FormState> _formKeys = GlobalKey();
@@ -33,14 +36,14 @@ class Login extends StatelessWidget {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.5,
                     ),
-                    GetX<CustomValidator>(
+                    GetX<RegisterControllers>(
                         initState: (_) {},
                         builder: (controller) {
                           return Column(
                             children: [
 
                               emailsandpass(
-                                  controller.emailtxt,
+                                  controllers.emailtxt,
                                   controller.emailvalidation.value,
                                   controller.emailvalidation1.value,
                                   controller.emailtextfieldicon.value,
@@ -50,10 +53,10 @@ class Login extends StatelessWidget {
                                   TextInputType.emailAddress,
                                   false,
                                   null,
-                                  controller.emailNameFocus, (term) {
-                                controller.emailNameFocus.unfocus();
+                                  controllers.emailNameFocus, (term) {
+                                controllers.emailNameFocus.unfocus();
                                 FocusScope.of(context)
-                                    .requestFocus(controller.passNameFocus);
+                                    .requestFocus(controllers.passNameFocus);
                               },
                                   true,
                                   TextInputAction.next,
@@ -62,7 +65,7 @@ class Login extends StatelessWidget {
                                   ValueKey('loginemail')),
 
                               emailandpass(
-                                controller.passtxt,
+                                controllers.passtxt,
                                 controller.passwordvalidation.value,
                                 controller.passwordvalidation1.value,
                                 controller.passtextfieldicon.value,
@@ -72,11 +75,11 @@ class Login extends StatelessWidget {
                                 null,
                                 true,
                                 null,
-                                controller.passNameFocus,
+                                controllers.passNameFocus,
                                 (term) {
-                                  controller.passNameFocus.unfocus();
+                                  controllers.passNameFocus.unfocus();
                                   FocusScope.of(context)
-                                      .requestFocus(controller.cnfNameFocus);
+                                      .requestFocus(controllers.submit);
                                 },
                                 true,
                                 TextInputAction.next,
@@ -172,7 +175,7 @@ class Login extends StatelessWidget {
                                       child: FlatButton(
                                           onPressed: () {
                                             showsDialog(
-                                                context, controller.resetPass);
+                                                context, controllers.resetPass);
                                           },
                                           child: Text(
                                             'Forgot Password?',
@@ -200,7 +203,7 @@ class Login extends StatelessWidget {
               ? Get.height * 0.06
               : Get.height * 0.123,
           child: ElevatedButton(
-            focusNode: controller.submit,
+            focusNode: controllers.submit,
             onPressed: () {
               check();
             },
@@ -217,7 +220,7 @@ class Login extends StatelessWidget {
   bool _validateUserData() {
     RegExp regex = new RegExp(pattern);
 
-    if (controller.emailtxt.text.trim().isEmpty) {
+    if (controllers.emailtxt.text.trim().isEmpty) {
       controller.name.value = false;
 
       controller.lname.value = false;
@@ -250,7 +253,7 @@ class Login extends StatelessWidget {
       controller.showephonearrow1.value = false;
 
       return false;
-    } else if (controller.emailtxt.text.trim().length <= 11) {
+    } else if (controllers.emailtxt.text.trim().length <= 11) {
       controller.name.value = false;
 
       controller.lname.value = false;
@@ -282,7 +285,7 @@ class Login extends StatelessWidget {
       controller.showephonearrow1.value = false;
 
       return false;
-    } else if (controller.passtxt.text.trim().isEmpty) {
+    } else if (controllers.passtxt.text.trim().isEmpty) {
       controller.name.value = false;
 
       controller.lname.value = false;
@@ -315,7 +318,7 @@ class Login extends StatelessWidget {
       controller.showephonearrow1.value = false;
 
       return false;
-    } else if (controller.passtxt.text.trim().length < 6) {
+    } else if (controllers.passtxt.text.trim().length < 6) {
       controller.name.value = false;
 
       controller.lname.value = false;
@@ -386,8 +389,8 @@ class Login extends StatelessWidget {
 
   Future check() async {
     if (_validateUserData()) {
-      controller.getlogindata(
-          controller.emailtxt.text.trim(), controller.passtxt.text.trim());
+      controllers.getlogindata(
+          controllers.emailtxt.text.trim(), controllers.passtxt.text.trim());
       print('finally done with login page ');
     }
   }
@@ -480,7 +483,7 @@ class Login extends StatelessWidget {
                           // controller.resetPass.text =fora;
                           print('${controller.resetPass.text} second');
 
-                          controller.passReset(controller.resetPass.text);
+                          controllers.passReset(controllers.resetPass.text);
 
                           print(controller.resetPass.text.trim());
                         }

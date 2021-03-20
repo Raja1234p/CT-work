@@ -1,5 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:country_code_picker/country_localizations.dart';
+import 'package:trollyproject/UI/reg.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -12,9 +13,9 @@ import 'UI/cartui.dart';
 import 'UI/customvalidation.dart';
 import 'UI/login.dart';
 import 'UI/stripeui.dart';
-import 'UI/validationui.dart';
+import 'UI/RegisterScreen.dart';
 import 'apivalidation.dart';
-import 'controllers/customvalidatorcontroller.dart';
+import 'controllers/RegisterController.dart';
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:trollyproject/UI/Profile.dart';
 
@@ -23,7 +24,7 @@ import 'controllers/stripecontroller.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(GetMaterialApp(home:LoginPage()));
+  runApp(GetMaterialApp(home:RegisterView()));
 }
 class MyApp extends StatefulWidget {
   @override

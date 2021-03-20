@@ -4,10 +4,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trollyproject/controllers/ProfileController.dart';
 import 'package:get/get.dart';
-import 'package:trollyproject/controllers/customvalidatorcontroller.dart';
+import 'package:trollyproject/controllers/RegisterController.dart';
 
 class Profile extends StatelessWidget {
-  CustomValidator controller = Get.put(CustomValidator());
+  RegisterControllers controller = Get.put(RegisterControllers());
 
   ProfileController controllers = Get.put(ProfileController());
   GlobalKey<FormState> _formKeys = GlobalKey();

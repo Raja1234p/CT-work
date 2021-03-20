@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trollyproject/controllers/customvalidatorcontroller.dart';
+import 'package:trollyproject/controllers/RegisterController.dart';
 
 
 

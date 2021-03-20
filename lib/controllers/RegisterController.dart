@@ -1,65 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:trollyproject/controllers/Network/network.dart';
 import 'package:trollyproject/model/LoginModel.dart';
 import 'package:trollyproject/model/forgot.dart';
-import 'package:trollyproject/model/loginandsignup.dart';
 import 'dart:io';
 
-// class CustomValidator extends GetxController{
-//
-//   RxBool showTooltip = false.obs;
-//   RxBool email = false.obs;
-//
-//   RxBool password = false.obs;
-//   RxBool password1 = false.obs;
-//
-//   RxBool name = false.obs;
-//   RxBool name1 = false.obs;
-//
-//   RxBool cnfpass = false.obs;
-//   RxBool cnfpass1 = false.obs;
-//
-//   RxBool lname = false.obs;
-//   RxBool lname1 = false.obs;
-//
-//   RxBool country = false.obs;
-//   RxBool city = false.obs;
-//
-//   RxBool number = false.obs;
-//   RxBool number1 = false.obs;
-//
-//   RxBool address = false.obs;
-//   RxBool address1 = false.obs;
-//
-//
-//   Rx<Welcome> welcome =Welcome().obs;
-//
-//   getdata(String name,String lastname,String email,String address,String city,String password,String phoneNumber) async{
-//     welcome= await Network().registeration(name,lastname,email,address,city,password,phoneNumber);
-//   }
-//
-// @override
-//   void onInit() {
-//     // TODO: implement onInit
-//     super.onInit();
-//
-//
-//   }
-//
-//
-//
-//
-//
-// }
 
 
 
-class CustomValidator extends GetxController{
+
+class RegisterControllers extends GetxController{
 
   RxBool name = false.obs;
 
+  var pickedImage ;
 
   RxBool lname = false.obs;
 
@@ -139,15 +96,9 @@ TextEditingController resetPass;
 Rx<Forgot> forgot =Forgot().obs;
 
 
-getlogindata(String email,String Pass) async{
 
-    loginmodel = await Network().login(email, Pass);
-  }
-passReset(String pass) async{
-  forgot = await Network().forgotPassword(pass);
-}
   getdata(String name,String lastname,String email,String address,String city,String password,String phoneNumber,String countryCode) async{
-    var register = await Network().registeration(name,lastname,email,address,city,password,phoneNumber,countryCode);
+    var Register = await Network().registeration(name,lastname,email,address,city,password,phoneNumber,countryCode);
 
 
   }
@@ -172,14 +123,7 @@ FocusNode loginnode;
 RxBool checkbox = false.obs;
 TextEditingController loginemailtxt;
 var countrycodename = ''.obs;
-// String emailAndPhone;
-  // String password;
-  //
-  // String cnfPass;
-  // String phone;
-  // String address;
-  // String country;
-  // String city;
+
 
 
 
@@ -188,8 +132,7 @@ var countrycodename = ''.obs;
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    // Network().forgotPassword("Azeemkalwar51@gmail.com");
-    // Network().checkmodel();
+
     resetPass =TextEditingController();
     loginemailtxt =TextEditingController();
 
@@ -271,7 +214,43 @@ var countrycodename = ''.obs;
   }
 
 
+  loadPicker(ImageSource source, context) async {
+    File picked = await ImagePicker.pickImage(source: source);
+    if (picked != null) {
+      // print(picked);
+      _cropImage(picked);
+    }
+    Get.back();
 
+  }
+
+  _cropImage(File picked) async {
+    File cropped = await ImageCropper.cropImage(
+      androidUiSettings: AndroidUiSettings(
+        statusBarColor: Colors.red,
+        toolbarColor: Colors.red,
+        toolbarTitle: "Crop Image",
+        toolbarWidgetColor: Colors.white,
+      ),
+      sourcePath: picked.path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio16x9,
+        CropAspectRatioPreset.ratio4x3,
+      ],
+      maxWidth: 800,
+    );
+    if (cropped != null) {
+      //pickedImage.value = cropped;
+      pickedImage = File(cropped.path);
+      print(pickedImage);
+      print('Cropping Done');
+      update();
+    }
+    else{
+      print('Not Cropping');
+    }
+  }
 
 
 }

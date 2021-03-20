@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trollyproject/UI/Profile.dart';
 import 'package:trollyproject/UI/login.dart';
-import 'package:trollyproject/UI/validationui.dart';
+import 'package:trollyproject/UI/RegisterScreen.dart';
 import 'package:trollyproject/model/forgot.dart';
 import 'package:trollyproject/model/loginandsignup.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -14,10 +14,10 @@ import 'package:trollyproject/model/UpdatedProfile.dart';
 
 import '../../apivalidation.dart';
 import '../ProfileController.dart';
-import '../customvalidatorcontroller.dart';
+import '../RegisterController.dart';
 
 class Network {
-  CustomValidator controller = Get.put(CustomValidator());
+  RegisterControllers controller = Get.put(RegisterControllers());
   ProfileController profileController = Get.put(ProfileController());
 
   List<User>userdata=[];

@@ -3,11 +3,12 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:trollyproject/controllers/validationcontroller.dart';
+import 'package:trollyproject/UI/reg.dart';
 
 
 class ConstWidget {
-  final controller = Get.find<RegisterController>();
+  final controllers = Get.put(RegisterController());
+
 
 
   Widget sizedBox(double height) {
@@ -75,48 +76,48 @@ class ConstWidget {
 
 //! Row Of check Box
   Widget rowCheckBox(String txt1, txt2, txt3) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Obx(
-
-              () => Checkbox(
-
-            //tristate: true,
-            value: controller.ischecked.value,
-            onChanged: (bool newValue) {
-              controller.checked(newValue);
-            },
-            activeColor: red,
-          ),
-        ),
-        Expanded(
-          child: Wrap(
-            children: [
-              RichText(
-                text: TextSpan(
-                    text: txt1,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                    ),
-                    children: <TextSpan>[
-                      textspan(txt2,black),
-                      TextSpan(
-                          text: ' and ',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                          )),
-                      textspan(txt3,black),
-                    ]),
-              )
-            ],
-          ),
-        )
-      ],
-    );
+    // return Row(
+    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //   mainAxisSize: MainAxisSize.min,
+    //   children: [
+    //     Obx(
+    //
+    //           () => Checkbox(
+    //
+    //         //tristate: true,
+    //         value: controller.ischecked.value,
+    //         onChanged: (bool newValue) {
+    //           controller.checked(newValue);
+    //         },
+    //         activeColor: red,
+    //       ),
+    //     ),
+    //     Expanded(
+    //       child: Wrap(
+    //         children: [
+    //           RichText(
+    //             text: TextSpan(
+    //                 text: txt1,
+    //                 style: TextStyle(
+    //                   color: Colors.black,
+    //                   fontSize: 15,
+    //                 ),
+    //                 children: <TextSpan>[
+    //                   textspan(txt2,black),
+    //                   TextSpan(
+    //                       text: ' and ',
+    //                       style: TextStyle(
+    //                         color: Colors.black,
+    //                         fontSize: 15,
+    //                       )),
+    //                   textspan(txt3,black),
+    //                 ]),
+    //           )
+    //         ],
+    //       ),
+    //     )
+    //   ],
+    // );
   }
 
   TextSpan textspan(String txt,Color color) {
@@ -154,7 +155,7 @@ class ConstWidget {
 
 //! Circle Avatar Stack
 
-  Widget circleAvatar(imagePath, BuildContext context) {
+  Widget circleAvatar(BuildContext context) {
     return
 
 
@@ -162,7 +163,11 @@ class ConstWidget {
       child: ClipOval(
         child: Stack(
           children: <Widget>[
-            Image.asset(imagePath),
+            Obx(()=>(controllers.pickedImage.value == '') ?
+            Image.asset( 'assets/LoginImage/processed.jpeg')
+                : Image.asset(controllers.pickedImage.value)),
+
+
 
             Positioned(
               bottom: 0,
@@ -172,9 +177,9 @@ class ConstWidget {
               child: GestureDetector(
                 onTap: () {
                   showsDialog(context, 'Choose Photo','Pick From Gallery', 'Take a picture',() {
-                    controller.loadPicker(ImageSource.gallery,context);
+                    controllers.loadPicker(ImageSource.gallery,context);
                   },() {
-                    controller.loadPicker(ImageSource.camera,context);
+                    controllers.loadPicker(ImageSource.camera,context);
                   },);
                 },
                 child: Container(
